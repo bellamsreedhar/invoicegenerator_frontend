@@ -1,0 +1,45 @@
+<div *ngIf="!showAddProductForm">
+<div class="product-list-header">
+    <h2>Product List</h2>
+    <button class="add-product-button" (click)="openAddProductForm()">Add Product</button>
+  </div>
+  
+  <div class="product-list-container">
+    <div *ngFor="let product of products" class="product-card">
+      <h3>{{ product.productName }}</h3>
+      <p>{{ product.description }}</p>
+      <p>Price: ${{ product.price }}</p>
+      <div class="quantity-container">
+        <button (click)="decrementQuantity(product)">-</button>
+        <span>{{ product.quantity }}</span>
+        <button (click)="incrementQuantity(product)">+</button>
+      </div>
+    </div>
+  </div>
+  </div>
+  
+  <!-- Add Product Form -->
+  <div *ngIf="showAddProductForm" class="add-product-container">
+    <h3>Add Product</h3>
+    <form [formGroup]="addProductForm" (ngSubmit)="addProduct()">
+      <div class="form-group">
+        <label for="productName">Product Name</label>
+        <input id="productName" formControlName="productName" type="text" placeholder="Enter product name" />
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description" placeholder="Enter product description"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="price">Price</label>
+        <input id="price" formControlName="price" type="number" placeholder="Enter product price" />
+      </div>
+      <div class="form-group">
+        <label for="quantity">Quantity</label>
+        <input id="quantity" formControlName="quantity" type="number" placeholder="Enter product quantity" />
+      </div>
+      <button type="submit" [disabled]="addProductForm.invalid">Submit</button>
+      <button type="button" (click)="closeAddProductForm()">Cancel</button>
+    </form>
+  </div>
+  
