@@ -1,0 +1,29 @@
+<div class="billing-container">
+    <h2>Billing Summary</h2>
+  
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of selectedProducts">
+          <td>{{ product.productName }}</td>
+          <td>{{ product.quantity }}</td>
+          <td>${{ product.price }}</td>
+          <td>${{ product.quantity * product.price }}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <h3>Total: ${{ totalPrice }}</h3>
+
+    <div class="button-container">
+        <button class="back-button" (click)="goBackToProducts()">Back to Products</button>
+    </div>
+  </div>
+  

@@ -4,6 +4,17 @@
     padding: 20px;
     text-align: center;
   }
+
+  .add-product-container {
+    width: 50%;
+    margin: auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-top: 10%;
+  }
   
   .product-card {
     border: 1px solid #ddd;
@@ -95,4 +106,18 @@
     border-radius: 4px;
   }
   
+ 
+  .proceed-button {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    float: right;
+  }
   
+  .proceed-button:hover {
+    background-color: #218838;
+  }

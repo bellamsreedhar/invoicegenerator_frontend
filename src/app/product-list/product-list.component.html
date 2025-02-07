@@ -16,6 +16,9 @@
       </div>
     </div>
   </div>
+  <div class="billing-button-container" *ngIf="selectedProducts.length > 0">
+    <button class="proceed-button" (click)="goToBilling()">Proceed to Billing</button>
+  </div>
   </div>
   
   <!-- Add Product Form -->

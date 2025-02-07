@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,12 +17,12 @@ export class ProductListComponent {
   showAddProductForm = false;
   addProductForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
     this.addProductForm = this.fb.group({
       productName: ['', Validators.required],
       description: ['', Validators.required],
       price: [0, [Validators.required, Validators.min(0)]],
-      quantity: [1, [Validators.required, Validators.min(1)]],
+      quantity: [0, [Validators.required, Validators.min(0)]],
     });
 
     this.getProducts();
@@ -73,15 +74,34 @@ export class ProductListComponent {
             console.log('Product saved successfully:', response);
 
             // Update the local product list for UI display
+            this.addProductForm.patchValue({
+              quantity:0
+            })
             this.products.push(this.addProductForm.value);
 
             // Close the add product form
             this.closeAddProductForm();
           },
           error => {
-            console.error('Error saving product:', error);
+            if(error.status == 200){
+              this.addProductForm.patchValue({
+                quantity:0
+              })
+              this.products.push(this.addProductForm.value);
+              this.closeAddProductForm();
+            }
           }
         );
     }
 }
+
+  // Get selected products
+  get selectedProducts() {
+    return this.products.filter((product:any) => product.quantity > 0);
+  }
+
+  // Redirect to Billing Page
+  goToBilling() {
+    this.router.navigate(['/billing'], { state: { selectedProducts: this.selectedProducts } });
+  }
 }
